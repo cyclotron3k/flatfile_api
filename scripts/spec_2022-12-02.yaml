@@ -1,0 +1,372 @@
+---
+- :method: POST
+  :description: Exchange access key for JWT
+  :path: "/auth/access-key-exchange"
+  :body_params:
+  - Name: accessKeyId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: Access Key generated in app
+  - Name: expiresIn
+    Required: ''
+    Type: number
+    Value: 43200 (default)
+    Description: Sets an expiration (in seconds)
+  - Name: secretAccessKey
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: Secret Access Key generated in app
+- :method: GET
+  :description: Download an upload
+  :path: "/batch/:batchId/export.csv"
+  :path_params:
+  - Name: batchId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :query_params:
+  - Name: type
+    Required: 'true'
+    Type: string
+    Value: 'Enum: original, processed'
+    Description: File to download
+- :method: DELETE
+  :description: Delete an upload
+  :path: "/batch/:batchId"
+  :path_params:
+  - Name: batchId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+- :method: GET
+  :description: Bulk delete uploads
+  :path: "/delete/batches"
+  :query_params:
+  - Name: olderThanQuantity
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: olderThanUnit
+    Required: 'true'
+    Type: string
+    Value: 'Enum: minute, hour, day, week, month'
+    Description: ''
+  - Name: sendEmail
+    Required: 'true'
+    Type: string
+    Value: 'Enum: true, false'
+    Description: ''
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+- :method: GET
+  :description: List Workspace uploads
+  :path: "/rest/batches"
+  :query_params:
+  - Name: endUserId
+    Required: ''
+    Type: string
+    Value: ''
+    Description: Valid endUserId for the Workspace
+  - Name: environmentId
+    Required: ''
+    Type: string
+    Value: ''
+    Description: Valid environmentId for the Workspace
+  - Name: licenseKey
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid licenseKey for the Workspace
+  - Name: search
+    Required: ''
+    Type: string
+    Value: ''
+    Description: Searches fileName, originalFile, memo
+  - Name: skip
+    Required: ''
+    Type: number
+    Value: 0 (default)
+    Description: The rows to skip before listing
+  - Name: take
+    Required: ''
+    Type: number
+    Value: 50 (default)
+    Description: The maximum number of rows to return
+  - Name: workspaceId
+    Required: ''
+    Type: string
+    Value: ''
+    Description: Valid workspaceId for the Workspace
+- :method: GET
+  :description: File upload meta data
+  :path: "/rest/batch/:batchId"
+  :path_params:
+  - Name: batchId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+- :method: GET
+  :description: Sheet name for file upload
+  :path: "/upload/:uploadId/dataSources"
+  :path_params:
+  - Name: uploadId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :query_params:
+  - Name: licenseKey
+    Required: ''
+    Type: string
+    Value: ''
+    Description: A valid licenseKey for the Workspace
+- :method: GET
+  :description: Records for file upload
+  :path: "/rest/batch/:batchId/rows"
+  :path_params:
+  - Name: batchId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :query_params:
+  - Name: createdAtEndDate
+    Required: ''
+    Type: string
+    Value: ISO 8601
+    Description: The maximum createdAt date to return
+  - Name: createdAtStartDate
+    Required: ''
+    Type: string
+    Value: ISO 8601
+    Description: The minimum createdAt date to return
+  - Name: deleted
+    Required: ''
+    Type: string
+    Value: 'Enum: true, t, y, false, f, n'
+    Description: Return only deleted rows
+  - Name: skip
+    Required: ''
+    Type: number
+    Value: 0 (default)
+    Description: The rows to skip before listing
+  - Name: take
+    Required: ''
+    Type: number
+    Value: 50 (default)
+    Description: The maximum number of rows to return
+  - Name: updatedAtEndDate
+    Required: ''
+    Type: string
+    Value: ISO 8601
+    Description: The maximum updatedAt date to return
+  - Name: updatedAtStartDate
+    Required: ''
+    Type: string
+    Value: ISO 8601
+    Description: The minimum updatedAt date to return
+  - Name: valid
+    Required: ''
+    Type: string
+    Value: 'Enum: true, t, y, false, f, n'
+    Description: Return only valid rows
+- :method: POST
+  :description: Upload to Workspace sheet
+  :path: "/workspace/:workspaceId/sheet/:sheetId/data"
+  :path_params:
+  - Name: sheetId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+- :method: GET
+  :description: Fetch Workspace sheet records
+  :path: "/workspace/:workspaceId/sheet/:sheetId/records"
+  :path_params:
+  - Name: sheetId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :query_params:
+  - Name: filter
+    Required: ''
+    Type: string
+    Value: 'Enum: review, dismissed, accepted'
+    Description: Return only the filtered rows
+  - Name: mergeId
+    Required: ''
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: nested
+    Required: ''
+    Type: boolean
+    Value: ''
+    Description: ''
+  - Name: recordIds
+    Required: ''
+    Type: string[]
+    Value: ''
+    Description: ''
+  - Name: skip
+    Required: ''
+    Type: number
+    Value: 0 (default)
+    Description: The rows to skip before listing
+  - Name: take
+    Required: ''
+    Type: number
+    Value: 50 (default)
+    Description: The maximum number of rows to return
+  - Name: valid
+    Required: ''
+    Type: string
+    Value: 'Enum: true, t, y, false, f, n'
+    Description: Return only valid rows
+- :method: GET
+  :description: List team Workspaces
+  :path: "/rest/teams/:teamId/workspaces"
+  :path_params:
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  :query_params:
+  - Name: environmentId
+    Required: ''
+    Type: string
+    Value: ''
+    Description: Valid environmentId for the Workspace
+  - Name: skip
+    Required: ''
+    Type: number
+    Value: 0 (default)
+    Description: The rows to skip before listing
+  - Name: take
+    Required: ''
+    Type: number
+    Value: 50 (default)
+    Description: The maximum number of rows to return
+- :method: GET
+  :description: Detail Workspace
+  :path: "/rest/workspace/:workspaceId"
+  :path_params:
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+- :method: POST
+  :description: Invite Workspace collaborator
+  :path: "/rest/teams/:teamId/workspaces/:workspaceId/invitations"
+  :path_params:
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :body_params:
+  - Name: email
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: Email address of invited collaborator
+- :method: GET
+  :description: List Workspace invitations
+  :path: "/rest/teams/:teamId/workspaces/:workspaceId/invitations"
+  :path_params:
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+- :method: GET
+  :description: List Workspace collaborators
+  :path: "/rest/teams/:teamId/workspaces/:workspaceId/collaborators"
+  :path_params:
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+- :method: DELETE
+  :description: Revoke Workspace invitation
+  :path: "/rest/teams/:teamId/workspaces/:workspaceId/invitations"
+  :path_params:
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :body_params:
+  - Name: email
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: Email address of invited collaborator
+- :method: DELETE
+  :description: Remove Workspace collaborator
+  :path: "/rest/teams/:teamId/workspaces/:workspaceId/collaborators/:userId"
+  :path_params:
+  - Name: teamId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: userId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: ''
+  - Name: workspaceId
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: A valid UUID
+  :body_params:
+  - Name: email
+    Required: 'true'
+    Type: string
+    Value: ''
+    Description: Email address of collaborator

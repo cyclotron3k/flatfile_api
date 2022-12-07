@@ -1,0 +1,115 @@
+class FlatfileApi
+  VERSION: String
+
+  def initialize: (?access_key_id: String, ?secret_access_key: String, ?debug: bool) -> void
+
+  def exchange_access_key_for_jwt(
+    access_key_id: String,
+    ?expires_in: Integer,
+    secret_access_key: String
+  ) -> Response
+
+  def download_an_upload(
+    batch_id:,
+    type:
+  ) -> Response
+
+  def delete_an_upload(
+    batch_id: String
+  ) -> Response
+
+  def bulk_delete_uploads(
+    older_than_quantity: String,
+    older_than_unit: String,
+    send_email: bool,
+    team_id:  String
+  ) -> Response
+
+  def list_workspace_uploads(
+    ?end_user_id: String,
+    ?environment_id: String,
+    license_key: String,
+    ?search: String,
+    ?skip: Integer,
+    ?take: Integer,
+    ?workspace_id: String
+  ) -> PaginatedResponse
+
+  def file_upload_meta_data(
+    batch_id: String
+  ) -> Response
+
+  def sheet_name_for_file_upload(
+    upload_id: String,
+    ?license_key: String
+  ) -> Response
+
+  def records_for_file_upload(
+    batch_id: String,
+    ?created_at_end_date: (String | Time | DateTime),
+    ?created_at_start_date: (String | Time | DateTime),
+    ?deleted: bool,
+    ?skip: Integer,
+    ?take: Integer,
+    ?updated_at_end_date: (String | Time | DateTime),
+    ?updated_at_start_date: (String | Time | DateTime),
+    ?valid: bool
+  ) -> PaginatedResponse
+
+  def upload_to_workspace_sheet(
+    sheet_id: String,
+    workspace_id: String,
+  ) -> Response
+
+  def fetch_workspace_sheet_records(
+    sheet_id: String,
+    workspace_id: String,
+    ?filter: String,
+    ?merge_id: String,
+    ?nested: bool,
+    ?record_ids: Array[String],
+    ?skip: Integer,
+    ?take: Integer,
+    ?valid: bool
+  ) -> PaginatedResponse
+
+  def list_team_workspaces(
+    team_id: String,
+    ?environment_id: String,
+    ?skip: Integer,
+    ?take: Integer
+  ) -> PaginatedResponse
+
+  def detail_workspace(
+    workspace_id: String
+  ) -> Response
+
+  def invite_workspace_collaborator(
+    team_id: String,
+    workspace_id: String,
+    email: String
+  ) -> Response
+
+  def list_workspace_invitations(
+    team_id: String,
+    workspace_id: String
+  ) -> Response
+
+  def list_workspace_collaborators(
+    team_id: String,
+    workspace_id: String
+  ) -> Response
+
+  def revoke_workspace_invitation(
+    team_id: String,
+    workspace_id: String,
+    email: String
+  ) -> Response
+
+  def remove_workspace_collaborator(
+    team_id: String,
+    user_id: String,
+    workspace_id: String,
+    email: String
+  ) -> Response
+end
